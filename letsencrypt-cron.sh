@@ -6,8 +6,8 @@ sudo -u acme /usr/bin/python /opt/acme_tiny.py --account-key /etc/secrets-global
 wget -q -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem > $INTERMEDIATE
 if [ -s $SIGNED_CRT ] && /usr/bin/openssl verify -CAfile $INTERMEDIATE $SIGNED_CRT
 then
-    # for nginx cat $SIGNED_CRT $INTERMEDIATE > /etc/secrets/letsencrypt/chained.csr
-    chmod 400 $SIGNED_CRT $INTERMEDIATE
+    cat $SIGNED_CRT $INTERMEDIATE > /etc/secrets/letsencrypt/chained.pem
+    chmod 400 $SIGNED_CRT $INTERMEDIATE /etc/secrets/letsencrypt/chained.pem
     mv $INTERMEDIATE /etc/secrets/letsencrypt/intermediate.pem
     mv $SIGNED_CRT /etc/secrets/letsencrypt/signed.crt
 fi
