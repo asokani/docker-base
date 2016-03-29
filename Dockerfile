@@ -1,13 +1,16 @@
 FROM mainlxc/ubuntu
 MAINTAINER Asokani "https://github.com/asokani"
 
+# TODO maybe install PPA nodejs
 RUN apt-get update && \
-  apt-get -y install postfix mailutils sqlite3 pwgen
+  apt-get -y install postfix mailutils sqlite3 pwgen nodejs
 
 # startup scripts
 RUN mkdir -p /etc/my_init.d
 
 # letsencrypt
+# https://github.com/sebastianw/acme-tiny fork (because of intermediate
+# cert)
 ADD acme_tiny.py /opt/acme_tiny.py
 RUN mkdir -p /var/log/acme && chown :acme /var/log/acme	
 RUN mkdir -p /var/app-cert/.well-known/acme-challenge && \ 
