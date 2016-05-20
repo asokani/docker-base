@@ -23,7 +23,7 @@ ADD letsencrypt-cron.sh /etc/cron.monthly/letsencrypt.sh
 RUN rm -f /etc/service/sshd/down
 
 # mail
-RUN sed -i 's/relayhost =/relayhost = postfix/g' /etc/postfix/main.cf
+RUN sed -i 's/relayhost =/relayhost = mailserver/g' /etc/postfix/main.cf
 RUN sed -i 's/\/etc\/mailname,//g' /etc/postfix/main.cf
 RUN echo "smtp_host_lookup = native\n" >> /etc/postfix/main.cf
 RUN mkdir /etc/service/postfix
