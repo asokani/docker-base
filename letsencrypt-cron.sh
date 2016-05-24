@@ -11,4 +11,3 @@ then
     mv $INTERMEDIATE /etc/secrets/letsencrypt/intermediate.pem
     mv $SIGNED_CRT /etc/secrets/letsencrypt/signed.crt
 fi
-rm $INTERMEDIATE $SIGNED_CRT
