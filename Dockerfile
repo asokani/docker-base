@@ -17,7 +17,7 @@ RUN mkdir -p /var/app-cert/.well-known/acme-challenge && \
 	chown acme:www-user /var/app-cert/.well-known/acme-challenge && \
 	chmod 750 /var/app-cert/.well-known/acme-challenge
 ADD letsencrypt-startup.sh /etc/my_init.d/letsencrypt.sh
-ADD letsencrypt-cron.sh /etc/cron.monthly/letsencrypt.sh
+ADD letsencrypt-cron.sh /etc/cron.weekly/letsencrypt.sh
 
 # ssh
 RUN rm -f /etc/service/sshd/down
