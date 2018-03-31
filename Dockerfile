@@ -1,16 +1,10 @@
 FROM mainlxc/ubuntu
 MAINTAINER Asokani "https://github.com/asokani"
 
-# TODO maybe install PPA nodejs
-RUN apt-get update && \
-  apt-get -y install postfix mailutils sqlite3 pwgen nodejs
+# TODO RUN apt-get update && \
+RUN apt-get -y install postfix mailutils sqlite3 pwgen
 
-# startup scripts
-RUN mkdir -p /etc/my_init.d
-
-# letsencrypt
-# https://github.com/sebastianw/acme-tiny fork (because of intermediate
-# cert)
+# acme tiny 4.0.3
 ADD acme_tiny.py /opt/acme_tiny.py
 RUN mkdir -p /var/log/acme && chown :acme /var/log/acme	
 RUN mkdir -p /var/app-cert/.well-known/acme-challenge && \ 
@@ -19,7 +13,7 @@ RUN mkdir -p /var/app-cert/.well-known/acme-challenge && \
 ADD letsencrypt-startup.sh /etc/my_init.d/letsencrypt
 ADD letsencrypt-cron.sh /etc/cron.weekly/letsencrypt
 
-# ssh
+# enable ssh
 RUN rm -f /etc/service/sshd/down
 
 # mail
@@ -33,4 +27,4 @@ EXPOSE 22
 
 CMD ["/sbin/my_init"]
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# TODO RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
