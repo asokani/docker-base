@@ -10,11 +10,8 @@ RUN mkdir -p /var/log/acme && chown :acme /var/log/acme
 RUN mkdir -p /var/app-cert/.well-known/acme-challenge && \ 
 	chown acme:www-user /var/app-cert/.well-known/acme-challenge && \
 	chmod 750 /var/app-cert/.well-known/acme-challenge
-ADD letsencrypt-startup.sh /etc/my_init.d/letsencrypt
+ADD letsencrypt-startup.sh /etc/my_init.d/20-letsencrypt
 ADD letsencrypt-cron.sh /etc/cron.weekly/letsencrypt
-
-# enable ssh
-RUN rm -f /etc/service/sshd/down
 
 # mail
 RUN sed -i 's/relayhost =/relayhost = mailserver/g' /etc/postfix/main.cf
